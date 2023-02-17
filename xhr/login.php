@@ -73,7 +73,7 @@ if ($f == 'login') {
             if (!empty($_POST['last_url'])) {
                 $data['location'] = $_POST['last_url'];
             } else {
-                $data['location'] = $br['config']['site_url']."/index.php?link1=home";
+                $data['location'] = $br['config']['site_url']."/index.php?link1=welcome";
             }
             $user_data = Br_UserData($userid);
             // if ($br['config']['membership_system'] == 1) {
