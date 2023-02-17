@@ -1,6 +1,6 @@
 <?php
 // +------------------------------------------------------------------------+
-// | @author Brijesh Chauhan
+// | @author Atul Pratap Singh
 // | @author_url: http://www.brsoftsol.com
 // | @author_team: BR Team
 // | @author_email: brijeshch80580@gmail.com   
@@ -72,21 +72,7 @@ if ($br['loggedin'] == true) {
         case 'edit-profile':
             include('sources/edit_profile.php');
             break;
-        case 'certificates':
-            include('sources/certificates.php');
-            break;
-        case 'documents':
-            include('sources/documents.php');
-            break;
-        case 'idcard':
-            include('sources/idcard.php');
-            break;
-        case 'team':
-            include('sources/team.php');
-            break;
-        case 'projects':
-            include('sources/projects.php');
-            break;
+        
         case 'logout':
             include('sources/logout.php');
             break;
@@ -104,18 +90,6 @@ if ($br['loggedin'] == true) {
             break;
         case 'contact-us':
             include('sources/contact.php');
-            break;
-        case 'company-about':
-            include('sources/company_about.php');
-            break;
-        case 'company-services':
-            include('sources/company_services.php');
-            break;
-        case 'company-client':
-            include('sources/company_clients.php');
-            break;
-        case 'blog-page':
-            include('sources/blog_page.php');
             break;
     }
 } else {
@@ -176,18 +150,6 @@ if ($br['loggedin'] == true) {
             break;
         case 'site-pages':
             include('sources/site_pages.php');
-            break;
-        case 'company-about':
-            include('sources/company_about.php');
-            break;
-        case 'company-services':
-            include('sources/company_services.php');
-            break;
-        case 'company-affiliate':
-            include('sources/company_affiliate.php');
-            break;
-        case 'blog-page':
-            include('sources/blog_page.php');
             break;
     }
 }

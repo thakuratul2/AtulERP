@@ -12,7 +12,7 @@ Route => ./index.php
 
 
 # To create a new page in frontend:
-1. write case in switch case in inex.php
+1. write case in switch case in index.php
 2. create file in ./sources folder and load view there
 3. create phtml file and folder in ./themes/blean/layout
 
