@@ -1,0 +1,15 @@
+<div class="alert alert-white announcement-<?php echo $br['activeAnnouncement']['id'];?>">
+   <span class="close announcements-option" data-toggle="tooltip" onclick="Br_DeleteAnnouncement(<?php echo $br['activeAnnouncement']['id'];?>);" title="<?php echo 'delete'; ?>">
+   <i class="fa fa-trash"></i>
+   </span>
+   <span class="close announcements-option" data-toggle="tooltip" onclick="Br_DisableAnnouncement(<?php echo $br['activeAnnouncement']['id'];?>);" title="<?php echo 'disable'; ?>">
+   <i class="fa fa-remove"></i>
+   </span>
+   <?php echo $br['activeAnnouncement']['text'];?>
+   <span class="time ajax-time" title="<?php echo date('c',$br['activeAnnouncement']['time']); ?>">
+   <?php echo Br_Time_Elapsed_String($br['activeAnnouncement']['time']);?>
+   </span>
+   <span class="time">
+   <?php echo 'views' . ' ' . Br_GetAnnouncementViews($br['activeAnnouncement']['id']);?>
+   </span>
+</div>

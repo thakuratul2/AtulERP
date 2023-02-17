@@ -1,0 +1,109 @@
+<div class="row">
+	<div class="col-lg-1"></div>
+	<div class="col-lg-10">
+
+		<div class="page-margin br_content">
+			<div class="page-margin br_creads_minstp br__minstp start_up step-one-active">
+				<div class="line">
+					<div class="line_sec"></div>
+					<div class="dot one"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+							<path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+						</svg></div>
+					<div class="dot two"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+							<path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+						</svg></div>
+					<div class="dot three"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+							<path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+						</svg></div>
+				</div>
+				<div class="steps">
+					<div class="step step-one">Basic</div>
+					<div class="step step-two">Info</div>
+					<div class="step step-three">More</div>
+				</div>
+				<h2>Basic Information</h2>
+				<h4>photo desc</h4>
+			</div>
+			<div class="add-photo br_usr_steps">
+
+				<form method="post" class="setting-general-form" id="setting-general-form" novalidate="">
+					<div class="row">
+						<div class="col">
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label>First Name</label>
+										<input class="form-control" type="text" name="fname"
+											value="<?php echo $br['user']['fname']; ?>" placeholder="First Name">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label>Last Name</label>
+										<input class="form-control" type="text" name="lname" placeholder="Last Name"
+											value="<?php echo $br['user']['lname']; ?>">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label>Phone</label>
+										<input class="form-control" type="text" name="phone_number"
+											placeholder="Enter Phone Number"
+											value="<?php echo $br['user']['phone_number']; ?>">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col mb-3">
+									<div class="form-group">
+										<label>About</label>
+										<textarea class="form-control" name="about" rows="5" placeholder="My Bio"
+											value="<?php echo $br['user']['about']; ?>"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" name="user_id" value="<?php echo $br['user']['uid']; ?>">
+					<input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+				</form>
+				<div class="clear"></div>
+			</div>
+			<div class="continue-button br_usr_steps_cont">
+				<small class="skip-step" onclick="Br_SkipStep('info-startup');">Skip this Step</small>
+				<button class="btn btn-primary" onclick="Br_SubmitInfoForm();">Next Step</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-1"></div>
+</div>
+<script type="text/javascript">
+	function Br_SkipStep(type) {
+		window.location.href = '<?php echo Br_SeoLink('index.php?link1=start-up&link2=info-startup'); ?>';
+	}
+	function Br_SubmitInfoForm() {
+		$("form.setting-general-form").submit();
+	}
+	$(function () {
+		$('form.setting-general-form').ajaxForm({
+			url: Br_Ajax_Requests_File() + '?f=update_user_information_startup&s=update_basic_setting',
+			beforeSend: function () {
+				$('button').attr('disabled', true);
+				$('button').text("Please wait");
+			},
+			success: function (data) {
+				if (data.status == 200) {
+					window.location.href = '<?php echo Br_SeoLink('index.php?link1=start-up&link2=info-startup'); ?>';
+				} else {
+					$('button').attr('disabled', true);
+					$('button').text("Error Occured");
+				}
+			}
+		});
+	});
+</script>

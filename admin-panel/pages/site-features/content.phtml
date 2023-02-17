@@ -1,0 +1,132 @@
+<div class="container-fluid">
+    <div class="block-header">
+        <h2>Settings > Manage Features</h2>
+    </div>
+    <!-- Vertical Layout -->
+    <div class="row">
+        <div class="col-lg-7 col-md-7">
+            <div class="card">
+                <div class="header">
+                    <h2>Site Features</h2>
+                </div>
+                <div class="body">
+                    <div class="alert alert-success site-settings-alert"></div>
+                    <form class="site-settings" method="POST">
+                        <label for="afternoon_system">Greeting System<span class="black" data-toggle="popover"
+                                data-trigger="hover" data-content="Good Afternoon, good morning messages."><i
+                                    class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="afternoon_system" id="afternoon_system-enabled" value="1" <?php echo ($br['config']['afternoon_system'] == 1) ? 'checked' : ''; ?>>
+                            <label for="afternoon_system-enabled">Enabled</label>
+                            <input type="radio" name="afternoon_system" id="afternoon_system-disabled" value="0" <?php echo ($br['config']['afternoon_system'] == 0) ? 'checked' : ''; ?>>
+                            <label for="afternoon_system-disabled" class="m-l-20">Disabled</label>
+                        </div>
+
+                        <label for="password_complexity_system">Password Complexity System</label>
+                        <div class="form-group">
+                            <input type="radio" name="password_complexity_system"
+                                id="password_complexity_system-enabled" value="1" <?php echo ($br['config']['password_complexity_system'] == 1) ? 'checked' : ''; ?>>
+                            <label for="password_complexity_system-enabled">Enabled</label>
+                            <input type="radio" name="password_complexity_system"
+                                id="password_complexity_system-disabled" value="0" <?php echo ($br['config']['password_complexity_system'] == 0) ? 'checked' : ''; ?>>
+                            <label for="password_complexity_system-disabled" class="m-l-20">Disabled</label>
+                        </div>
+
+                        <label for="bank_withdrawal_system">Bank Account Withdrawal System</label>
+                        <div class="form-group">
+                            <input type="radio" name="bank_withdrawal_system" id="bank_withdrawal_system-enabled"
+                                value="1" <?php echo ($br['config']['bank_withdrawal_system'] == 1) ? 'checked' : ''; ?>>
+                            <label for="bank_withdrawal_system-enabled">Enabled</label>
+                            <input type="radio" name="bank_withdrawal_system" id="bank_withdrawal_system-disabled"
+                                value="0" <?php echo ($br['config']['bank_withdrawal_system'] == 0) ? 'checked' : ''; ?>>
+                            <label for="bank_withdrawal_system-disabled" class="m-l-20">Disabled</label>
+                        </div>
+
+                        <input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 float-left">
+            <div class="card">
+                <div class="header">
+                    <h2>Greeting Quote Settings</h2>
+                </div>
+                <div class="body">
+                    <div class="alert alert-success quote-settings-alert"></div>
+                    <form class="quote-settings" method="POST">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <textarea name="goodMorningQuote" id="goodMorningQuote" class="form-control" cols="30"
+                                    rows="5"><?php echo $br['config']['goodMorningQuote']; ?></textarea>
+                                <label class="form-label">Good Morning Quote</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <textarea name="goodAfternoonQuote" id="goodAfternoonQuote" class="form-control"
+                                    cols="30" rows="5"><?php echo $br['config']['goodAfternoonQuote']; ?></textarea>
+                                <label class="form-label">Good Afternoon Quote</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <textarea name="goodEveningQuote" id="goodEveningQuote" class="form-control" cols="30"
+                                    rows="5"><?php echo $br['config']['goodEveningQuote']; ?></textarea>
+                                <label class="form-label">Good Evening Quote</label>
+                            </div>
+                        </div>
+                        <input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <!-- #END# Vertical Layout -->
+    <script>
+        $(function () {
+
+            var form_site_settings = $('form.site-settings');
+            form_site_settings.ajaxForm({
+                url: Br_Ajax_Requests_File() + '?f=admin_setting&s=update_general_setting',
+                beforeSend: function () {
+                    form_site_settings.find('button').text('Please wait..');
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        form_site_settings.find('button').text('Save');
+                        $("html, body").animate({
+                            scrollTop: 0
+                        }, "slow");
+                        $('.site-settings-alert').html('<i class="fa fa-check"></i> Settings updated successfully');
+                        setTimeout(function () {
+                            $('.site-settings-alert').empty();
+                        }, 2000);
+                    }
+                }
+            });
+
+            var form_quote_settings = $('form.quote-settings');
+            form_quote_settings.ajaxForm({
+                url: Br_Ajax_Requests_File() + '?f=admin_setting&s=update_general_setting',
+                beforeSend: function () {
+                    form_quote_settings.find('.waves-effect').text('Please wait..');
+
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        form_quote_settings.find('.waves-effect').text('Save');
+                        $('.quote-settings-alert').html('<i class="fa fa-check"></i> Settings updated successfully');
+                        setTimeout(function () {
+                            $('.quote-settings-alert').empty();
+                        }, 2000);
+                    }
+                }
+            });
+
+        });
+    </script>

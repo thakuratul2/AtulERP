@@ -1,0 +1,14 @@
+<tr class="setting-banlist" id="IPID_<?php echo $br['ip']['id']?>" >
+   <td><?php echo $br['ip']['id']?></td>
+   <td>
+      <div class="ajax-time" title="<?php echo date('c',$br['ip']['time']); ?>">
+         <?php echo Br_Time_Elapsed_String($br['ip']['time']);?>
+      </div>
+   </td>
+   <td>
+     <?php echo $br['ip']['ip_address']?>
+   </td>
+   <td>
+      <a href="<?php echo Br_LoadAdminLinkSettings('ban-users?delete_ip=' . $br['ip']['id']) ?>" class="btn btn-danger waves-effect">DELETE</a>
+   </td>
+</tr>

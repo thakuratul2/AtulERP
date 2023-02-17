@@ -1,0 +1,9 @@
+<tr class="setting-postlist" id="<?php echo $br['page']['id'];?>">
+   <td><?php echo $br['page']['id'];?></td>
+   <td><a href="<?php echo Br_SeoLink('index.php?link1=site-pages&page_name=' . $br['page']['page_name']); ?>"><?php echo $br['page']['page_name'];?></a></td>
+   <td><?php echo $br['page']['page_title'];?></td>
+   <td>
+      <a class="btn btn-info waves-effect waves-light" href="<?php echo Br_LoadAdminLinkSettings('edit-custom-page?id=' . $br['page']['page_name']); ?>">EDIT</a>
+      <button class="btn btn-danger waves-effect waves-light" onclick="Br_DeleteCustomPage(<?php echo $br['page']['id'];?>);">DELETE</button>
+   </td>
+</tr>

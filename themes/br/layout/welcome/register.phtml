@@ -1,0 +1,355 @@
+<?php
+$thms = $br['config']['theme_url'];
+$bg = $br['config']['theme_url'] . '/imgs/welcome1.png';
+// echo Br_LoadPage('welcome/welcome-header');
+?>
+<style>
+	.main-register-box {
+		background-color: #F9F7F7;
+		width: 25rem;
+		margin-left: 15rem;
+		border-radius: 20px;
+	}
+
+	.login-title {
+		font-size: 2rem;
+		margin-top: 2rem;
+	}
+
+	.login-top-text {
+		line-height: .5px;
+	}
+
+	.rounded-circle {
+
+		width: 100px;
+		height: 100px;
+		margin-top: -30px;
+
+	}
+
+	.camera-icon {
+		width: 30px;
+		height: 30px;
+		margin-top: -60px;
+	}
+
+	.img-file {
+		margin-left: -150px;
+		margin-top: -100px;
+		width: 30px;
+		height: 50px;
+	}
+
+	.alert-danger {
+		margin-top: -40px;
+		background: #F9F7F7;
+		border: 1px solid #ffffff;
+
+	}
+
+	.input-field {
+		margin-top: -12px;
+		border-radius: 20px;
+
+
+	}
+
+	.check-agree-text {
+		margin-top: -10px;
+	}
+
+	.sub-btn {
+		margin-top: -50px;
+	}
+
+	.form-control {
+		width: 80%;
+		border-radius: 50px;
+		margin-left: 10%;
+
+	}
+
+	.form-check-label a {
+		color: rgb(255, 123, 0);
+		text-decoration: none;
+	}
+
+	.text-black-50 a {
+		text-decoration: none;
+	}
+
+
+	@media only screen and (max-width: 600px) {
+		.main-register-box {
+			width: 80%;
+			margin-left: 2rem;
+			margin-top: 12%;
+		}
+	}
+</style>
+
+<div class="wrapper">
+	<!-- registration area -->
+	<section id="register">
+		<div class="row m-0">
+			<div class="col-lg-4 offset-lg-2 main-register-box">
+				<div class="text-center pb-5">
+					<h1 class="login-title text-dark">Register</h1>
+					<p class="p-1 m-0 font-ubuntu text-black-50">Register and enjoy additional features</p>
+					<span class="font-ubuntu text-black-50">Have a Account ? <a href="index.php?link1=login">Login</a></span>
+				</div>
+				<div class="upload-profile-image d-flex justify-content-center pb-5">
+					<div class="text-center">
+						<div class="d-flex justify-content-center">
+							<img class="camera-icon" id="camimg" src="<?php echo $thms; ?>/icons/camera-solid.svg" alt="camera">
+						</div>
+						<img src="<?php echo $thms; ?>/imgs/beard.png" id="simg" class="img rounded-circle" alt="profile">
+						<small class="form-text text-black-50 choose-img-text">Choose Image</small>
+						<input type="file" form="reg-form" class="form-control-file img-file" name="profileUpload" id="upload-profile">
+					</div>
+				</div>
+				<div class="d-flex justify-content-center">
+					<form method="post" enctype="multipart/form-data" id="reg-form">
+						<div class="alert alert-danger errors"></div>
+						<div class="form-row my-4">
+							<div class="col input-field">
+								<input type="text" value="" name="firstName" id="firstName" class="form-control" placeholder="First Name">
+							</div>
+
+						</div>
+
+						<div class="form-row my-4">
+							<div class="col input-field">
+								<input type="text" value="" name="lastName" id="lastName" class="form-control" placeholder="Last Name">
+							</div>
+						</div>
+
+						<div class="form-row my-4">
+							<div class="col input-field">
+								<select name="Gender" id="gender" class="form-control" placeholder="Gender">
+									<option value="Male">Male</option>
+									<option value="Female">Female</option>
+								</select>
+								<!-- <input type="text" value="" name="Gender" id="gender" class="form-control" placeholder="Gender"> -->
+							</div>
+						</div>
+
+						<div class="form-row my-4">
+							<div class="col input-field">
+								<input type="email" value="" required name="email" id="email" class="form-control" placeholder="Email*">
+							</div>
+						</div>
+
+						<div class="form-row my-4">
+							<div class="col input-field">
+								<input type="password" required name="password" id="password" class="form-control" placeholder="Password*">
+							</div>
+						</div>
+
+						<div class="form-row my-4">
+							<div class="col input-field">
+								<input type="password" required name="confirm_pwd" id="confirm_pwd" class="form-control" placeholder="Confirm Password*">
+								<small id="confirm_error" class="text-danger"></small>
+							</div>
+						</div>
+
+						<div class="form-check form-check-inline check-agree-text">
+							<input type="checkbox" name="agreement" class="form-check-input" required>
+							<label for="agreement" class="form-check-label font-ubuntu text-black-50">I agree <a href="#">Policy, Terms & Conditions </a>(*) </label>
+						</div>
+
+						<div class="submit-btn text-center my-5">
+							<button id="sign_submit" type="submit" class="btn sub-btn btn-warning rounded-pill text-dark px-5">Continue</button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- #registration area -->
+</div>
+<div class="container">
+	<?php // echo Br_LoadPage('footer/welcome');
+	?></div>
+
+<script>
+	var working = false;
+	var $this = $('#reg-form');
+	var $state = $this.find('.errors');
+	$('#register').css("background", "url('<?php echo $bg; ?>') no-repeat");
+	$('#register').css("background-size", "cover");
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$('#camimg').css('display', 'none');
+				$('#simg').attr('src', e.target.result);
+			}
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$("#upload-profile").change(function() {
+		readURL(this);
+	});
+
+	$(function() {
+		$this.ajaxForm({
+			url: Br_Ajax_Requests_File() + '?f=register',
+			beforeSend: function() {
+				<?php if ($br['config']['password_complexity_system'] == 1 ) {
+				?>
+					if ($('.helper-text .length').hasClass('valid') && $('.helper-text .lowercase').hasClass('valid') && $('.helper-text .uppercase').hasClass('valid') && $('.helper-text .special').hasClass('valid')) {
+						$this.find('button').attr("disabled", true);
+						$this.find('.add_wow_loader').addClass('btn-loading');
+					} else {
+						$state.html("<?php echo ('complexity_requirements'); ?>");
+						return false;
+					}
+				<?php } else { ?>
+					$this.find('button').attr("disabled", true);
+					$this.find('.add_wow_loader').addClass('btn-loading');
+					return true
+				<?php } ?>
+			},
+			success: function(data) {
+				if (data.status == 200) {
+					$state.addClass('success');
+					$state.html('<?php echo 'welcome'; ?>');
+					$this.find('.add_wow_loader').removeClass('btn-loading');
+					setTimeout(function() {
+						window.location.href = data.location;
+					}, 1000);
+				} else if (data.status == 300) {
+					$state.html('<?php echo 'redirecting'; ?>');
+					window.location.href = data.location;
+				} else {
+					$this.find('button').attr("disabled", false);
+					$this.find('.add_wow_loader').removeClass('btn-loading');
+					$state.html(data.errors);
+				}
+				return true;
+			}
+		});
+	});
+
+	function activateButton(element) {
+		if (element.checked) {
+			document.getElementById("sign_submit").disabled = false;
+		} else {
+			document.getElementById("sign_submit").disabled = true;
+		}
+	};
+
+	<?php if ($br['config']['password_complexity_system'] == 1) {
+	?>
+
+			(function() {
+				var helperText = {
+					charLength: document.querySelector('.helper-text .length'),
+					lowercase: document.querySelector('.helper-text .lowercase'),
+					uppercase: document.querySelector('.helper-text .uppercase'),
+					special: document.querySelector('.helper-text .special')
+				};
+				var password = document.querySelector('#password');
+
+
+
+				var pattern = {
+					charLength: function() {
+						if (password.value.length >= 6) {
+							return true;
+						}
+					},
+					lowercase: function() {
+						var regex = /^(?=.*[a-z]).+$/; // Lowercase character pattern
+
+						if (regex.test(password.value)) {
+							return true;
+						}
+					},
+					uppercase: function() {
+						var regex = /^(?=.*[A-Z]).+$/; // Uppercase character pattern
+
+						if (regex.test(password.value)) {
+							return true;
+						}
+					},
+					special: function() {
+						var regex = /^(?=.*[0-9_\W]).+$/; // Special character or number pattern
+
+						if (regex.test(password.value)) {
+							return true;
+						}
+					}
+				};
+
+				// Listen for keyup action on password field
+				password.addEventListener('keyup', function() {
+					$('.helper-text').slideDown('slow', function() {
+
+					});
+					// Check that password is a minimum of 8 characters
+					patternTest(pattern.charLength(), helperText.charLength);
+
+					// Check that password contains a lowercase letter		
+					patternTest(pattern.lowercase(), helperText.lowercase);
+
+					// Check that password contains an uppercase letter
+					patternTest(pattern.uppercase(), helperText.uppercase);
+
+					// Check that password contains a number or special character
+					patternTest(pattern.special(), helperText.special);
+
+					// Check that all requirements are fulfilled
+					if (hasClass(helperText.charLength, 'valid') &&
+						hasClass(helperText.lowercase, 'valid') &&
+						hasClass(helperText.uppercase, 'valid') &&
+						hasClass(helperText.special, 'valid')
+					) {
+						addClass(password.parentElement, 'valid');
+					} else {
+						removeClass(password.parentElement, 'valid');
+					}
+				});
+
+				function patternTest(pattern, response) {
+					if (pattern) {
+						addClass(response, 'valid');
+					} else {
+						removeClass(response, 'valid');
+					}
+				}
+
+				function addClass(el, className) {
+					if (el.classList) {
+						el.classList.add(className);
+					} else {
+						el.className += ' ' + className;
+					}
+				}
+
+				function removeClass(el, className) {
+					if (el.classList)
+						el.classList.remove(className);
+					else
+						el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+				}
+
+				function hasClass(el, className) {
+					if (el.classList) {
+						console.log(el.classList);
+						return el.classList.contains(className);
+					} else {
+						new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+					}
+				}
+
+			})();
+	<?php } ?>
+</script>

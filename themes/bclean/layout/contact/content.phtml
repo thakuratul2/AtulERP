@@ -1,0 +1,101 @@
+<div class="container-fluid m-auto mt-md-5 bg-light">
+        <div class="row ">
+            <div class="col-md-6 box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset">
+                <div class="mt-2 mb-5 text-center">
+                    <h1 class="service_heading ">Contact Us</h1>
+                </div>
+                <form >
+                    <div class="name row g-3 ">
+                        <div class="col">
+                            <label for="name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <label for="name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                    <div class="email mb-3 mt-3">
+                      <label for="email" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="message mb-3">
+                      <label for="message" class="form-label">Message</label>
+                      <input type="textarea" class="form-control" id="message">
+                    </div>
+                    <div class= "details mb-3">
+                        <label for="details" class="form-label">Additional Details</label>
+                        <textarea class="form-control" id="details" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-3">Send Message</button>
+                  </form>
+            </div>
+            <div class="col-md-6">
+                <h1 class="mt-5">How Can We Help?</h1>
+                <p class="mt-4">
+                    please select a topic below related to your inquiry. If you don't find what you need, fill out our contact form.
+                </p>
+                <div class="accordion accordion-flush mt-4 mb-4" id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          Have a project ?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Need a custom software solution for your business? Please send me an email to discuss your project needs.
+
+                            I can help you get started on the road of building a simple and well-tested working solution, together, with your team.</div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                          Want to join our team?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">At Imagine, we play to win. Every day brings a new challenge. Every day brings an opportunity to learn and grow. Every day brings another chance to wow our customers. We work hard but we play hard too.
+
+                            As a quickly growing company, we are always looking for passionate, talented and creative people to join our team’s roster. If you’re looking for a challenge that will lead you to the next level of your career, you’ve found the right place.
+                            
+                            Come win with us</div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                          Become a partner
+                        </button>
+                      </h2>
+                      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Partnering with BR SoftSol provides a level of comfort with the people, process and technology to come up with an aligned solution to provide to our customers so they can feel good about their plans and how the solution will grow with them.</div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+<script>
+$('.wow_main_blogs_bg').css('height', ($('.wow_main_float_head').height()) + 'px');
+   $(function() {
+     $('form.contact-us-form').ajaxForm({
+       url: Br_Ajax_Requests_File() + '?f=contact_us',
+       beforeSend: function() {
+		 $('form.contact-us-form').find('.add_wow_loader').addClass('btn-loading');
+       },
+       success: function(data) {
+         if (data.status == 200) {
+            $('.contact-us-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+            $('.alert-success').fadeIn(300);
+         } else {
+             var errors = data.errors.join("<br>");
+             $('.contact-us-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+             $('.alert-danger').fadeIn(300);
+         }
+         $('form.contact-us-form').find('.add_wow_loader').removeClass('btn-loading');
+       }
+     });
+   });
+</script>

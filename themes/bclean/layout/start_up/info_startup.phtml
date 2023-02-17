@@ -1,0 +1,158 @@
+<div class="row">
+	<div class="col-lg-1"></div>
+	<div class="col-lg-10">
+
+		<div class="page-margin br_content">
+			<div class="br_creads_minstp page-margin br__minstp start_up step-two-active">
+				<div class="line">
+					<div class="line_sec"></div>
+					<div class="dot one"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+							<path fill="currentColor"
+								d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z">
+							</path>
+						</svg></div>
+					<div class="dot two"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+							<path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+						</svg></div>
+					<div class="dot three"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 24 24">
+							<path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+						</svg></div>
+				</div>
+				<div class="steps">
+					<div class="step step-one">Basic</div>
+					<div class="step step-two">Info</div>
+					<div class="step step-three">More</div>
+				</div>
+				<h2>Tell us</h2>
+				<h4>Tell us desc</h4>
+			</div>
+			<div class="clear"></div>
+			<div class="add-photo br_usr_steps">
+				<form class="row g-3 setting-general-form needs-validation" method="post" id="setting-general-form" novalidate="">
+					<div class="col-md-3">
+						<label for="validationCustom04" class="form-label">Gender</label>
+						<select class="form-select" value="<?php echo $br['user']['gender']; ?>" name="gender" id="validationCustom04" required="">
+							<option selected disabled value>Choose...</option>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						</select>
+
+					</div>
+
+					<div class="col-md-4">
+						<label for="validationCustom02" class="form-label">Address</label>
+						<input type="text" class="form-control" name="address" id="validationCustom02" value="<?php echo $br['user']['address']; ?>"
+							required="">
+						<div class="valid-feedback">
+							Looks good!
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<label for="validationCustom03" class="form-label">City</label>
+						<input type="text" name="city" value="<?php echo $br['user']['city']; ?>" class="form-control" id="validationCustom03" required="">
+						<div class="invalid-feedback">
+							Please provide a valid city.
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="validationCustom04" class="form-label">State</label>
+						<select class="form-select" name="state" id="validationCustom04" required="">
+							<option selected disabled value>Choose...</option>
+							<option value="UP">Uttar Pradesh</option>
+							<option value="other">other</option>
+						</select>
+
+					</div>
+					<div class="col-md-3">
+						<label for="validationCustom05" class="form-label">Pin Code</label>
+						<input type="number" name="pin_code" value="<?php echo $br['user']['pin_code']; ?>" class="form-control" id="validationCustom05" required="">
+						<div class="invalid-feedback">
+							Please provide a valid zip.
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="validationCustom005" class="form-label">College Name</label>
+						<input type="text" name="college_name" value="<?php echo $br['user']['college_name']; ?>" class="form-control" id="validationCustom005" required="">
+						<div class="invalid-feedback">
+							Please provide a valid College Name.
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="validationCustom04" class="form-label">Depeartment</label>
+						<select class="form-select" name="department" id="validationCustom04" required="">
+							<option selected disabled value>Choose...</option>
+							<option value="Web Development">Web Development</option>
+							<option value="App Development">App Development</option>
+							<option value="Graphics Development">Graphic Designing</option>
+							<option value="Content Writing">Content Writing</option>
+							<option value="Digital Marketing">Digital Marketing</option>
+						</select>
+
+					</div>
+					<div class="col-md-3">
+						<label for="validationCustom05" class="form-label">Aadhar No</label>
+						<input type="number" value="<?php echo $br['user']['aadhar_no']; ?>" name="aadhar_no" class="form-control" id="validationCustom05" required="">
+
+					</div>
+
+					<div class="col-md-3">
+						<label for="validationCustom05" class="form-label">DOB</label>
+						<div class="input-group date" id="datepicker">
+							<input type="date" name="birthday" class="form-control" id="date" value="<?php echo $br['user']['birthday']; ?>">
+
+						</div>
+					</div>
+					<input type="hidden" name="user_id" value="<?php echo $br['user']['uid']; ?>">
+					<input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+				</form>
+				<div class="clear"></div>
+			</div>
+			<div class="continue-button br_usr_steps_cont">
+				<small class="skip-step" onclick="Br_SkipStep('more-startup');">Skip this Step</small>
+				<button class="btn btn-secondary" onclick="Br_SubmitInfoForm();">Continue</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-1"></div>
+</div>
+
+<script type="text/javascript">
+	$(function () {
+		$("#date").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			maxDate: new Date('<?php echo date('Y') - 14; ?>-12-31'),
+			dateFormat: 'dd-mm-yy',
+			yearRange: "<?php echo date('Y') - 129; ?>:<?php echo date('Y') - 14; ?>",
+			prevText: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" /></svg>',
+			nextText: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>'
+		});
+	});
+	function Br_SkipStep(type) {
+		window.location.href = '<?php echo Br_SeoLink('index.php?link1=start-up&link2=more-startup'); ?>';
+	}
+	function Br_SubmitInfoForm() {
+		$("form.setting-general-form").submit();
+	}
+	$(function () {
+		$('form.setting-general-form').ajaxForm({
+			url: Br_Ajax_Requests_File() + '?f=update_user_information_startup&s=update_info_setting',
+			beforeSend: function () {
+				$('button').attr('disabled', true);
+				$('button').text("Please wait");
+			},
+			success: function (data) {
+				if (data.status == 200) {
+					window.location.href = '<?php echo Br_SeoLink('index.php?link1=start-up&link2=more-startup'); ?>';
+				} else {
+					$('button').attr('disabled', true);
+					$('button').text("Error Occured");
+				}
+			}
+		});
+	});
+</script>

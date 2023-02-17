@@ -1,0 +1,63 @@
+<section id="forgot-pass-form">
+	<div class="row m-0">
+		<div class="col-lg-4 offset-lg-2 main-register-box">
+			<div class="text-center pb-5 login-top-text">
+				<h3 class="login-title text-dark"><?php echo $br['lang']['confirm_your_account'] ?></h3>
+				<h5 class="icon" style="color: <?php echo $br['config']['btn_background_color']; ?>">
+					<?php echo $br['lang']['sign_in_attempt'] ?>
+				</h5>
+				<p class="p-1 m-0 font-ubuntu text-black-50"><?php echo $br['lang']['we_have_sent_you_code'] ?></p>
+			</div>
+
+			<div class="d-flex justify-content-center">
+				<form method="post" id="confirm-form" class="confirm-form">
+
+					<div class="alert alert-danger errors" role="alert" style="display: none;"></div>
+					<div class="alert alert-success success" role="alert" style="display: none;"></div>
+					
+					<div class="form-row my-4">
+						<div class="col input-field">
+							<input type="text" name="confirm_code" id="confirm_code" class="form-control"
+								placeholder="Confirmation Code">
+						</div>
+					</div>
+					<div class="submit-btn text-center my-5">
+						<button type="submit" id="activate-submit"
+							class="btn btn-mat btn-warning text-dark px-5 sub-btn add_br_loader">
+							<i class="fa fa-check progress-icon" data-icon="check"></i> Confirm</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	var working = false;
+	var $this = $('#confirm-form');
+	var $state = $this.find('.errors');
+	$(function () {
+		$this.ajaxForm({
+			url: Br_Ajax_Requests_File() + '?f=confirm_user_unusal_login',
+			beforeSend: function () {
+				working = true; $this.find('button').attr("disabled", true);
+				$this.find('.add_wow_loader').addClass('btn-loading');
+			},
+			success: function (data) {
+				if (data.status == 200) {
+					$state.addClass('success');
+					$state.html('<?php echo 'welcome_'; ?>');
+					$this.find('.add_wow_loader').removeClass('btn-loading');
+					setTimeout(function () {
+						window.location.href = data.location;
+					}, 1000);
+				} else {
+					$this.find('button').attr("disabled", false);
+					$this.find('.add_wow_loader').removeClass('btn-loading');
+					$state.html(data.errors);
+				}
+				working = false;
+			}
+		});
+	});
+</script>

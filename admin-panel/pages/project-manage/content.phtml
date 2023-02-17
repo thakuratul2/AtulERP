@@ -1,0 +1,400 @@
+<?php
+
+$page = (!empty($_GET['page-id']) && is_numeric($_GET['page-id'])) ? $_GET['page-id'] : 1;
+$filter_keyword = (!empty($_GET['query'])) ? Br_Secure($_GET['query']) : '';
+$db->pageLimit = 50;
+
+if (!empty($filter_keyword)) {
+  $sql = "(
+    `name`   LIKE '%$filter_keyword%' OR  
+    `description`    LIKE '%$filter_keyword%'
+  )";
+
+  $users = $db->where($sql)->orderBy('id', 'DESC')->objectbuilder()->paginate(T_PROJECTS, $page);
+} else {
+  $users = $db->objectbuilder()->orderBy('id', 'DESC')->paginate(T_PROJECTS, $page);
+}
+
+if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
+  header("Location: " . Br_LoadAdminLinkSettings('manage-users'));
+  exit();
+}
+
+?>
+<div class="container-fluid">
+  <div class="block-header">
+    <h2>Projects > Manage Projects</h2>
+  </div>
+  <!-- Vertical Layout -->
+  <div class="row">
+    <div class="col-lg-3 col-md-3 ">
+      <div class="info-box bg-teal hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">people_outline</i>
+        </div>
+        <div class="content">
+          <div class="text">ACTIVE PROJECTS</div>
+          <div class="number count-to" data-from="0" data-to="<?php echo Br_CountUserData('active_projects'); ?>"
+            data-speed="1000" data-fresh-interval="20"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 ">
+      <div class="info-box bg-teal hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">mail_outline</i>
+        </div>
+        <div class="content">
+          <div class="text">COMPLETED PROJECTS</div>
+          <div class="number count-to" data-from="0" data-to="<?php echo Br_CountUserData('inactive_projects'); ?>"
+            data-speed="1000" data-fresh-interval="20"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 ">
+      <div class="info-box bg-teal hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">mail_outline</i>
+        </div>
+        <div class="content">
+          <div class="text">PENDING PROJECTS</div>
+          <div class="number count-to" data-from="0" data-to="<?php echo Br_CountUserData('pending_projects'); ?>"
+            data-speed="1000" data-fresh-interval="20"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 ">
+      <div class="info-box bg-teal hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">mail_outline</i>
+        </div>
+        <div class="content">
+          <div class="text">CANCELLED PROJECTS</div>
+          <div class="number count-to" data-from="0" data-to="<?php echo Br_CountUserData('cancelled_projects'); ?>"
+            data-speed="1000" data-fresh-interval="20"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-12 col-md-12">
+      <div class="card">
+        <div class="header">
+          <h2>Manage & Edit Projects</h2>
+        </div>
+        <div class="body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-success site-settings-alert"></div>
+            </div>
+            <div class="col-md-4" style="margin-bottom:0;">
+              <form method="get" action="<?php echo Br_LoadAdminLinkSettings('manage-users'); ?>">
+                <div class="row">
+                  <div class="col-md-11">
+                    <div class="form-group form-float">
+                      <div class="form-line">
+                        <input type="text" name="query" id="query" class="form-control"
+                          value="<?php echo ($filter_keyword); ?>">
+                        <label class="form-label search-form">
+                          Search for Project Name, Description
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-info">Search</button>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-user-role-modal">New
+            Project</button>
+          <br><br>
+          <div class="table-responsive1">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Description</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                    foreach ($users as $userlist) {
+                      $br['userlist'] = Br_GetProject($userlist->id);
+                      echo Br_LoadAdminPage('project-manage/list');
+                    }
+                    ?>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="modal fade" id="add-user-role-modal" role="dialog">
+            <div class="modal-dialog">
+
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Create New Project</h4><br>
+                </div>
+                <div class="modal-body">
+                  <div class="alert alert-danger site-settings-alert"></div>
+                  <form class="add-roles" method="POST">
+                    <div class="form-group form-float">
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" aria-describedby="Name">
+                      </div>
+                      <div class="form-line"></div><br>
+                      <div class="mb-3">
+                        <label for="valu" class="form-label">Price</label>
+                        <input type="Number" class="form-control" value="1" name="valu" aria-describedby="Name">
+                      </div>
+                      <div class="form-line"></div><br>
+                      <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="description" aria-describedby="Name">
+                      </div>
+                      <div class="form-line"></div><br>
+                      <div class="mb-3">
+                        <label for="priority" class="form-label">Priority</label>
+                        <input type="Number" class="form-control" name="priority" value="1" aria-describedby="Name">
+                      </div>
+                      <div class="form-line"></div>
+                    </div>
+                    <input type="hidden" id="user_id" name="user_id">
+                    <input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+                    <button type="submit" id="submitLikes" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="closeLikesForm" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal fade" id="FollowersForm" role="dialog">
+            <div class="modal-dialog">
+
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Edit Role</h4><br>
+                </div>
+                <div class="modal-body">
+                  <div class="alert alert-danger site-settings-alert"></div>
+                  <form class="edit-roles" method="POST">
+                    <div class="form-group form-float">
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" aria-describedby="Name">
+                      </div>
+                      <div class="form-line"></div><br>
+                      <div class="mb-3">
+                        <label for="valu" class="form-label">Price</label>
+                        <input type="Number" class="form-control" id="valu" name="valu" aria-describedby="Name">
+                      </div>
+                      <div class="form-line"></div><br>
+                      <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                          aria-describedby="Name">
+                      </div>
+                      <div class="form-line"></div><br>
+                      <div class="mb-3">
+                        <label for="priority" class="form-label">Priority</label>
+                        <input type="Number" class="form-control" id="priority" name="priority" aria-describedby="Name">
+                      </div>
+                      <div class="form-line"></div><br>
+                      <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select name="status" id="status" class="form-control">
+                          <option value="1">Completed</option>
+                          <option value="0" selected>Ongoing</option>
+                          <option value="2">Pending</option>
+                          <option value="3">Cancelled</option>
+                        </select>
+                      </div>
+                      <div class="form-line"></div>
+                    </div>
+                    <input type="hidden" id="role_id" name="role_id">
+                    <input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+                    <button type="submit" id="submitEdits" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="closeEditForm" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="wo-admincp-feturepager">
+            <div class="pull-left">
+              <span>
+                <?php echo "Showing $page out of " . $db->totalPages; ?>
+              </span>
+            </div>
+            <div class="pull-right">
+              <nav>
+                <ul class="pagination">
+                  <li>
+                    <a href="<?php echo Br_LoadAdminLinkSettings('manage-users?page-id=1'); ?>" class="waves-effect"
+                      title='First Page'>
+                      <i class="material-icons">first_page</i>
+                    </a>
+                  </li>
+                  <?php if ($page > 1) { ?>
+                  <li>
+                    <a href="<?php echo Br_LoadAdminLinkSettings('manage-users?page-id=' . ($page - 1)); ?>"
+                      class="waves-effect" title='Previous Page'>
+                      <i class="material-icons">chevron_left</i>
+                    </a>
+                  </li>
+                  <?php } ?>
+
+                  <?php
+                      $nums = 0;
+                      $nums_pages = ($page > 4) ? ($page - 4) : $page;
+
+                      for ($i = $nums_pages; $i <= $db->totalPages; $i++) {
+                        if ($nums < 20) {
+                      ?>
+                  <li class="<?php echo ($page == $i) ? 'active' : ''; ?>">
+                    <a href="<?php echo Br_LoadAdminLinkSettings('manage-users?page-id=' . ($i)); ?>"
+                      class="waves-effect">
+                      <?php echo $i ?>
+                    </a>
+                  </li>
+
+                  <?php }
+                        $nums++;
+                      } ?>
+
+                  <?php if ($db->totalPages > $page) { ?>
+                  <li>
+                    <a href="<?php echo Br_LoadAdminLinkSettings('manage-users?page-id=' . ($page + 1)); ?>"
+                      class="waves-effect" title="Next Page">
+                      <i class="material-icons">chevron_right</i>
+                    </a>
+                  </li>
+                  <?php } ?>
+                  <li>
+                    <a href="<?php echo Br_LoadAdminLinkSettings('manage-users?page-id=' . ($db->totalPages)); ?>"
+                      class="waves-effect" title='Last Page'>
+                      <i class="material-icons">last_page</i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <script>
+    function Br_DeleteRole(user_id) {
+      if (confirm("Are you sure you want to delete this Project?") == false) {
+        return false;
+      }
+      hash_id = $('#hash_id').val();
+      $('#UserID_' + user_id).fadeOut(300, function () {
+        $(this).remove();
+      });
+      $.get(Br_Ajax_Requests_File(), {
+        f: 'admin_setting',
+        s: 'delete_project',
+        user_id: user_id,
+        hash_id: hash_id
+      }, function (data) {
+        if (data.status == 200) {
+          $('.site-settings-alert.alert-success').html('<i class="fa fa-check"></i> Projects are being deleted in the background, please check in a while.');
+          setTimeout(function () {
+            $('.site-settings-alert.alert-success').html('');
+          }, 3000);
+        }
+      });
+    }
+
+    function getUserId(user_id) {
+      $('#user_id').val(user_id);
+    }
+
+    function getRoleData(user_id, name, valu, description, priority) {
+      $('#role_id').val(user_id);
+      $('#name').val(name);
+      $('#valu').val(valu);
+      $('#description').val(description);
+      $('#priority').val(priority);
+    }
+
+    $(function () {
+      var form_site_settings = $('form.add-roles');
+      form_site_settings.ajaxForm({
+        url: Br_Ajax_Requests_File() + '?f=admin_setting&s=add_project',
+        beforeSend: function () {
+          $('.site-settings-alert.alert-danger').empty();
+          $('#submitLikes').text('Please wait..');
+        },
+        success: function (data) {
+          if (data['status'] == 200) {
+            $('#submitLikes').text('Add');
+            $('#closeLikesForm').click();
+            $("html, body").animate({
+              scrollTop: 0
+            }, "slow");
+            $('.site-settings-alert.alert-success').html('<i class="fa fa-check"></i> Project Added Successfully.');
+            setTimeout(function () {
+              $('.site-settings-alert').empty();
+            }, 10000);
+          } else if (data['status'] == 500) {
+            $('#submitLikes').text('Add');
+            $('.site-settings-alert.alert-danger').html('<i class="fa fa-fw fa-exclamation-triangle"></i> ' + data['error']);
+          }
+        }
+      });
+    });
+
+    $(function () {
+      var form_site_settings = $('form.edit-roles');
+      form_site_settings.ajaxForm({
+        url: Br_Ajax_Requests_File() + '?f=admin_setting&s=edit_project',
+        beforeSend: function () {
+          $('.site-settings-alert.alert-danger').empty();
+          $('#submitEdits').text('Please wait..');
+        },
+        success: function (data) {
+          if (data['status'] == 200) {
+            $('#submitEdits').text('Save');
+            $('#closeEditForm').click();
+            $("html, body").animate({
+              scrollTop: 0
+            }, "slow");
+            $('.site-settings-alert.alert-success').html('<i class="fa fa-check"></i> Project edited Successfully.');
+            setTimeout(function () {
+              $('.site-settings-alert').empty();
+            }, 10000);
+          } else if (data['status'] == 500) {
+            $('#submitEdits').text('Save');
+            $('.site-settings-alert.alert-danger').html('<i class="fa fa-fw fa-exclamation-triangle"></i> ' + data['error']);
+          }
+        }
+      });
+    });
+
+    $('#FollowersForm').on('hidden.bs.modal', function () {
+      $('.site-settings-alert.alert-danger').empty();
+    })
+  </script>

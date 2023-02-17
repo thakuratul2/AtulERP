@@ -1,0 +1,200 @@
+<nav class="navbar navbar-expand-lg navbar-light gradient-custom">
+
+  <div class="container-fluid">
+
+    <div class="box">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <a class="navbar-brand " href="<?php echo $br['config']['site_url']; ?>/index.php?link1=home"><img class="logo" src="<?php echo $br['config']['theme_url'] . '/imgs/logo.png'; ?>" alt=""></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?php echo $br['config']['site_url']; ?>/index.php?link1=home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Intern</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Company
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="<?php echo $br['config']['site_url']; ?>/index.php?link1=company-about">About</a></li>
+            <li><a class="dropdown-item" href="<?php echo $br['config']['site_url']; ?>/index.php?link1=company-services">Services</a></li>
+            <li><a class="dropdown-item" href="<?php echo $br['config']['site_url']; ?>/index.php?link1=company-client">Clients</a></li>
+            <li><a class="dropdown-item" href="<?php echo $br['config']['site_url']; ?>/index.php?link1=contact-us">Contact-us</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Services
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Web Developmeant</a></li>
+            <li><a class="dropdown-item" href="#">App Developmeant</a></li>
+            <li><a class="dropdown-item" href="#">Graphic Designing</a></li>
+            <li><a class="dropdown-item" href="#">Marketing</a></li>
+          </ul>
+        </li>
+
+      </ul>
+      <?php if ($br['loggedin'] == false) { ?>
+          <?php if($br['page'] == 'Login'){ ?>
+            <button id="login_btn" class="btn btn-outline-success" value="<?php echo $br['config']['site_url']; ?>/index.php?link1=register">Register</button>
+          <?php }else{ ?>
+            <button id="login_btn" class="btn btn-outline-success" value="<?php echo $br['config']['site_url']; ?>/index.php?link1=login">Login</button>
+          <?php } ?>
+      <?php } else { ?>
+        <button id="login_btn" class="btn btn-outline-success" value="<?php echo $br['config']['site_url']; ?>/index.php?link1=logout">Logout</button>
+      <?php } ?>
+
+    </div>
+
+  </div>
+
+</nav>
+<div class="barloading"></div>
+<script>
+  $('#login_btn').click(function() {
+    var text = $(this).attr('value'); 
+    window.location = text;
+  });
+</script>
+
+<style>
+  /* .............navbar.............  */
+  .navbar {
+
+    text-align: center;
+    box-shadow: -2px -2px 10px 0px #000000;
+  }
+
+  .logo {
+    height: 50px;
+    margin: 0px 20px;
+  }
+
+  .nav-item {
+    margin: 0 20px;
+    color: #222;
+
+  }
+
+  .nav-link {
+    font-style: unset;
+    font-weight: bolder;
+    font-size: 20px;
+  }
+
+  .navbar .btn {
+    padding: .45rem 1.5rem .35rem;
+    color: #fff;
+    font-weight: bolder;
+    background-color: transparent;
+    border: solid 1px white;
+  }
+
+  .navbar .btn:hover {
+    background-color: #0650bf;
+    border: solid 1px #0650bf;
+  }
+
+  .gradient-custom {
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(30deg, #eeeeee5d 20%, #0066ffe2 80%);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(30deg, #eeeeee5d 20%, #0066ffe2 80%);
+  }
+
+
+  .box div {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    animation: animate 10s linear infinite;
+    opacity: 0.5;
+    border: 3px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+  }
+
+  .box div:nth-child(1) {
+    top: 90%;
+    left: 60%;
+    animation: animate 9s linear infinite;
+  }
+
+  .box div:nth-child(2) {
+    top: 26%;
+    left: 50%;
+    animation: animate 10s linear infinite;
+  }
+
+  .box div:nth-child(3) {
+    top: 50%;
+    left: 80%;
+    animation: animate 7s linear infinite;
+  }
+
+  .box div:nth-child(5) {
+    top: 90%;
+    left: 20%;
+    animation: animate 6s linear infinite;
+  }
+
+  .box div:nth-child(6) {
+    top: 80%;
+    left: 90%;
+    animation: animate 6s linear infinite;
+  }
+
+  .box div:nth-child(7) {
+    top: 70%;
+    left: 40%;
+    animation: animate 6s linear infinite;
+  }
+
+  .box div:nth-child(8) {
+    top: 80%;
+    left: 70%;
+    animation: animate 10s linear infinite;
+  }
+
+  .box div:nth-child(9) {
+    top: 23%;
+    left: 70%;
+    animation: animate 6s linear infinite;
+  }
+
+  .box div:nth-child(10) {
+    top: 35%;
+    left: 90%;
+    animation: animate 10s linear infinite;
+  }
+
+  @keyframes animate {
+    0% {
+      transform: scale(0) translateY(0) rotate(50deg);
+    }
+
+    100% {
+      transform: scale(1.6) translateY(-250px) rotate(360deg);
+    }
+  }
+</style>

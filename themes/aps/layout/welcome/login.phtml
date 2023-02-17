@@ -1,0 +1,85 @@
+<section id="login-form">
+    <div class="row m-0">
+        <div class="col-lg-4 offset-lg-2 main-login-box" >
+            <div class="text-center pb-5 login-top-text">
+                <h1 class="login-title text-dark">Login</h1>
+                <p class="p-1 m-0 font-ubuntu text-black-50">Login and enjoy additional features</p>
+
+                <span class="font-ubuntu text-black-50">Create a new <a href="<?php echo Br_SeoLink('index.php?link1=register'); ?>">account</a></span>
+
+            </div>
+            <div class="upload-profile-image d-flex justify-content-center pb-5">
+                <div class="text-center ">
+                    <img src="<?php echo $br['config']['theme_url']; ?>/imgs/beard.png"  class="img rounded-circle" alt="profile">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <form method="post" enctype="multipart/form-data" id="log-form">
+                <div class="alert alert-danger errors" role="alert" style="display: none;"></div>
+                <div class="alert alert-success success" role="alert" style="display: none;"></div>
+                    <div class="form-row my-4">
+                        <div class="col input-field">
+                            <input type="email" required name="email" id="email" class="form-control" placeholder="Email*">
+                        </div>
+                    </div>
+
+                    <div class="form-row my-4">
+                        <div class="col input-field">
+                            <input type="password" required name="password" id="password" class="form-control" placeholder="Password*">
+                        </div>
+                    </div>
+                    <div class="forget-pass">
+                        <a href="<?php echo Br_SeoLink('index.php?link1=forgot-password'); ?>" class="font-ubuntu text-black-50">Forget Password?</a>
+                    </div>
+
+                    <div class="submit-btn text-center my-5">
+                        <button type="submit" class="btn btn-mat btn-warning rounded-pill text-dark px-5 sub-btn add_br_loader" >Login</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var working = false;
+    var $this = $('#log-form');
+    var $statee = $this.find('.errors');
+    var $states = $this.find('.success');
+    $('#login-form').css("background", "url('<?php echo $br['config']['theme_url'] . '/imgs/welcome1.png'; ?>') no-repeat");
+    $('#login-form').css("background-size", "cover");
+
+
+    $(function() {
+        $this.ajaxForm({
+            url: Br_Ajax_Requests_File() + '?f=login',
+            beforeSend: function() {
+                    $this.find('button').attr("disabled", true);
+                    $this.find('.add_br_loader').addClass('btn-loading');
+                    return true;
+            },
+            success: function(data) {
+                if (data.status == 200) {
+                    $states.show();
+                    $states.addClass('success');
+                    $states.html('<?php echo '<b>welcome</b>' ?>');
+                    $this.find('.add_br_loader').removeClass('btn-loading');
+                    setTimeout(function() {
+                        window.location.href = data.location;
+                    }, 1000);
+                } else if (data.status == 600) {
+                    $statee.show();
+                    $statee.html('<?php echo 'redirecting' ?>');
+                    window.location.href = data.location;
+                } else {
+                    $statee.show();
+                    $this.find('button').attr("disabled", false);
+                    $this.find('.add_br_loader').removeClass('btn-loading');
+                    $statee.html(data.errors);
+                }
+                return true;
+            }
+        });
+    });
+</script>

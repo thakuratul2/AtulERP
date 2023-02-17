@@ -1,0 +1,40 @@
+<button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2">
+    <span class="visually-hidden">Toggle
+        navigation</span>
+    <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navcol-2">
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="<?php echo Br_SeoLink('index.php?link1=home');?>">Feed</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo Br_SeoLink('index.php?link1=team');?>">Team</a></li>
+        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                data-bs-toggle="dropdown" href="#">More</a>
+            <div class="dropdown-menu"><a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=welcome');?>">Home</a>
+                <hr /><a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=company-about');?>">About</a>
+                <a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=company-affiliate');?>">Affiliate Partner</a>
+                <hr /><a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=company-services&service=web');?>">Web</a>
+                <a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=company-services&service=app'); ?>">App</a>
+                <a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=company-services&service=graphics'); ?>">Graphics</a>
+                    <a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=company-services&service=content');?>">Content</a>
+                    <a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=contact-us');?>">SEO</a>
+                    <a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=blog-page');?>">Blog Page</a>
+                    <a class="dropdown-item" href="<?php echo Br_SeoLink('index.php?link1=company-services&service=marketing'); ?>">Marketing</a>
+            </div>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo Br_SeoLink('index.php?link1=contact-us');?>">Contact</a></li>
+        <li class="nav-item dropdown">
+            <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+                <img src="<?php echo $br['user']['profile_pic']; ?>" style="width: 30px;border-radius: 50%;object-fit: cover;height: 30px;"> </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item"
+                    href="<?php echo Br_SeoLink('index.php?link1=edit-profile');?>">Profile</a>
+                <?php if(Br_IsAdmin() || Br_IsModerator()){ ?>
+                <a class="dropdown-item" href="<?php echo $br['config']['site_url']; ?>/admincp">Admin Area</a>
+                <?php } ?>
+                <hr />
+                <a class="dropdown-item"
+                    href="<?php echo Br_SeoLink('index.php?link1=logout');?>">Logout</a>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,278 @@
+<div class="container-fluid">
+    <div class="block-header">
+        <h2>Settings > General Settings</h2>
+    </div>
+    <!-- Vertical Layout -->
+    <div class="row">
+        <div class="col-lg-4 col-md-4 float-left">
+            <div class="card">
+                <div class="header">
+                    <h2>General Settings</h2>
+                </div>
+                <div class="body">
+                    <div class="alert alert-success general-settings-alert"></div>
+                    <form class="general-settings" method="POST">
+                        <label for="maintenance_mode">Maintenance Mode <span class="black" data-toggle="popover" data-trigger="hover" data-content="Turn the whole site under Maintenance. You can get the site back by visiting /admincp or /admin-cp"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="maintenance_mode" id="maintenance_mode-enabled" value="1" <?php echo ($br['config']['maintenance_mode'] == 1) ? 'checked' : ''; ?>>
+                            <label for="maintenance_mode-enabled">Enabled</label>
+                            <input type="radio" name="maintenance_mode" id="maintenance_mode-disabled" value="0" <?php echo ($br['config']['maintenance_mode'] == 0) ? 'checked' : ''; ?>>
+                            <label for="maintenance_mode-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="seoLink">Smooth Links <span class="black" data-toggle="popover" data-trigger="hover" data-content="Enable smooth links, e.g: {site_url}/home."><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="seoLink" id="seoLink-enabled" value="1" <?php echo ($br['config']['seoLink'] == 1) ? 'checked' : ''; ?>>
+                            <label for="seoLink-enabled">Enabled</label>
+                            <input type="radio" name="seoLink" id="seoLink-disabled" value="0" <?php echo ($br['config']['seoLink'] == 0) ? 'checked' : ''; ?>>
+                            <label for="seoLink-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="smooth_loading">Smooth Loading <span class="black" data-toggle="popover" data-trigger="hover" data-content="Enable smooth loading(Ajax loading) to save bandwidths (Recommended for shared hosting)"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="smooth_loading" id="smooth_loading-enabled" value="1" <?php echo ($br['config']['smooth_loading'] == 1) ? 'checked' : ''; ?>>
+                            <label for="smooth_loading-enabled">Enabled</label>
+                            <input type="radio" name="smooth_loading" id="smooth_loading-disabled" value="0" <?php echo ($br['config']['smooth_loading'] == 0) ? 'checked' : ''; ?>>
+                            <label for="smooth_loading-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="useSeoFrindly">SEO Friendly URL <span class="black" data-toggle="popover" data-trigger="hover" data-content="Enable smooth loading to save bandwidths (Recommended for shared hosting)"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="useSeoFrindly" id="useSeoFrindly-enabled" value="1" <?php echo ($br['config']['useSeoFrindly'] == 1) ? 'checked' : ''; ?>>
+                            <label for="useSeoFrindly-enabled">Enabled</label>
+                            <input type="radio" name="useSeoFrindly" id="useSeoFrindly-disabled" value="0" <?php echo ($br['config']['useSeoFrindly'] == 0) ? 'checked' : ''; ?>>
+                            <label for="useSeoFrindly-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="admincp_ajax_loading">AdminCP Ajax Loading <span class="black" data-toggle="popover" data-trigger="hover" data-content="Enable ajax loading to save bandwidths in Admin Panel"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="admincp_ajax_loading" id="admincp_ajax_loading-enabled" value="1" <?php echo ($br['config']['admincp_ajax_loading'] == 1) ? 'checked' : ''; ?>>
+                            <label for="admincp_ajax_loading-enabled">Enabled</label>
+                            <input type="radio" name="admincp_ajax_loading" id="admincp_ajax_loading-disabled" value="0" <?php echo ($br['config']['admincp_ajax_loading'] == 0) ? 'checked' : ''; ?>>
+                            <label for="admincp_ajax_loading-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="developers_page">Developers (API System) <span class="black" data-toggle="popover" data-trigger="hover" data-content="Show /developers page to all users for API requests."><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="developers_page" id="developers_page-enabled" value="1" <?php echo ($br['config']['developers_page'] == 1) ? 'checked' : ''; ?>>
+                            <label for="developers_page-enabled">Enabled</label>
+                            <input type="radio" name="developers_page" id="developers_page-disabled" value="0" <?php echo ($br['config']['developers_page'] == 0) ? 'checked' : ''; ?>>
+                            <label for="developers_page-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 float-right">
+            <div class="card">
+                <div class="header">
+                    <h2>User Settings</h2>
+                </div>
+                <div class="body">
+                    <div class="alert alert-success user-settings-alert"></div>
+                    <form class="user-settings" method="POST">
+                        <label for="user_registration">User Registration <span class="black" data-toggle="popover" data-trigger="hover" data-content="Allow users to create accounts"></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="user_registration" id="user_registration-enabled" value="1" <?php echo ($br['config']['user_registration'] == 1) ? 'checked' : ''; ?>>
+                            <label for="user_registration-enabled">Enabled</label>
+                            <input type="radio" name="user_registration" id="user_registration-disabled" value="0" <?php echo ($br['config']['user_registration'] == 0) ? 'checked' : ''; ?>>
+                            <label for="user_registration-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        
+                        <label for="login_auth">Unusual Login <span class="black" data-toggle="popover" data-trigger="hover" data-content="Send confirmation link when user logins from new location (Verify IPs)"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="login_auth" id="login_auth-enabled" value="1" <?php echo ($br['config']['login_auth'] == 1) ? 'checked' : ''; ?>>
+                            <label for="login_auth-enabled">Enabled</label>
+                            <input type="radio" name="login_auth" id="login_auth-disabled" value="0" <?php echo ($br['config']['login_auth'] == 0) ? 'checked' : ''; ?>>
+                            <label for="login_auth-disabled" class="m-l-20">Disabled</label>
+                        </div>
+
+                        <label for="login_auth">Two-factor authentication<span class="black" data-toggle="popover" data-trigger="hover" data-content="Send confirmation code to email or to SMS when user logins"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                                <input type="radio" name="two_factor" id="two_factor-enabled" value="1" <?php echo ($br['config']['two_factor'] == 1) ? 'checked': '';?>>
+                                <label for="two_factor-enabled">Enabled</label>
+                                <input type="radio" name="two_factor" id="two_factor-disabled" value="0" <?php echo ($br['config']['two_factor'] == 0) ? 'checked': '';?>>
+                                <label for="two_factor-disabled" class="m-l-20">Disabled</label>
+                        </div>
+
+                        <label for="login_auth">Send Two-factor authentication code to</label>
+                        <div class="form-group">
+                                <input type="radio" name="two_factor_type" id="two_factor_type-email" value="email" <?php echo ($br['config']['two_factor_type'] == 'email') ? 'checked': '';?>>
+                                <label for="two_factor_type-email">Email</label>
+                                <input type="radio" name="two_factor_type" id="two_factor_type-phone" value="phone" <?php echo ($br['config']['two_factor_type'] == 'phone') ? 'checked': '';?>>
+                                <label for="two_factor_type-phone" class="m-l-20">Phone</label>
+                                <input type="radio" name="two_factor_type" id="two_factor_type-both" value="both" <?php echo ($br['config']['two_factor_type'] == 'both') ? 'checked': '';?>>
+                                <label for="two_factor_type-both" class="m-l-20">Both</label>
+                        </div>
+                        <hr>
+                        <label for="emailValidation">Account Validation <span class="black" data-toggle="popover" data-trigger="hover" data-content="Send activation link when user has registered"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="emailValidation" id="emailValidation-enabled" value="1" <?php echo ($br['config']['emailValidation'] == 1) ? 'checked' : ''; ?>>
+                            <label for="emailValidation-enabled">Enabled</label>
+                            <input type="radio" name="emailValidation" id="emailValidation-disabled" value="0" <?php echo ($br['config']['emailValidation'] == 0) ? 'checked' : ''; ?>>
+                            <label for="emailValidation-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="sms_or_email">Account Validation System<span class="black" data-toggle="popover" data-trigger="hover" data-content="Choose the validation type, by SMS or E-mail, if you choose SMS, make sure you have configured the SMS configration."><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="sms_or_email" id="sms_or_email-enabled" value="sms" <?php echo ($br['config']['sms_or_email'] == 'sms') ? 'checked' : ''; ?>>
+                            <label for="sms_or_email-enabled">SMS</label>
+                            <input type="radio" name="sms_or_email" id="sms_or_email-disabled" value="mail" <?php echo ($br['config']['sms_or_email'] == 'mail') ? 'checked' : ''; ?>>
+                            <label for="sms_or_email-disabled" class="m-l-20">E-mail</label>
+                        </div>
+                        <hr>
+                        <label for="user_lastseen">User Lastseen Status <span class="black" data-toggle="popover" data-trigger="hover" data-content="Show (Online / Lastseen) status"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="user_lastseen" id="user_lastseen-enabled" value="1" <?php echo ($br['config']['user_lastseen'] == 1) ? 'checked' : ''; ?>>
+                            <label for="user_lastseen-enabled">Enabled</label>
+                            <input type="radio" name="user_lastseen" id="user_lastseen-disabled" value="0" <?php echo ($br['config']['user_lastseen'] == 0) ? 'checked' : ''; ?>>
+                            <label for="user_lastseen-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="deleteAccount">User Account Delation <span class="black" data-toggle="popover" data-trigger="hover" data-content="Allow users to delete their account"><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="deleteAccount" id="deleteAccount-enabled" value="1" <?php echo ($br['config']['deleteAccount'] == 1) ? 'checked' : ''; ?>>
+                            <label for="deleteAccount-enabled">Enabled</label>
+                            <input type="radio" name="deleteAccount" id="deleteAccount-disabled" value="0" <?php echo ($br['config']['deleteAccount'] == 0) ? 'checked' : ''; ?>>
+                            <label for="deleteAccount-disabled" class="m-l-20">Disabled</label>
+                        </div>
+
+
+                        <input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-4 col-md-4 float-right">
+            <div class="card">
+                <div class="header">
+                    <h2>Notifications Settings</h2>
+                </div>
+                <div class="body">
+                    <div class="alert alert-success notifications-settings-alert"></div>
+                    <form class="notifications-settings" method="POST">
+                        <label for="emailNotification">Email Notifications <span class="black" data-toggle="popover" data-trigger="hover" data-content="Send user notifications via email."><i class="fa fa-question-circle fa-fw"></i></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="emailNotification" id="emailNotification-enabled" value="1" <?php echo ($br['config']['emailNotification'] == 1) ? 'checked' : ''; ?>>
+                            <label for="emailNotification-enabled">Enabled</label>
+                            <input type="radio" name="emailNotification" id="emailNotification-disabled" value="0" <?php echo ($br['config']['emailNotification'] == 0) ? 'checked' : ''; ?>>
+                            <label for="emailNotification-disabled" class="m-l-20">Disabled</label>
+                        </div>
+
+                        <input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="card">
+                <div class="header">
+                    <h2>Prevent Login System</h2>
+                </div>
+                <div class="body">
+
+                    <div class="alert alert-success lock-settings-alert"></div>
+                    <div class="alert lock-settings-test-alert"></div>
+                    <form class="lock-settings" method="POST">
+                        <label for="prevent_system">Prevent Login System <span class="black" data-toggle="popover" data-trigger="hover"></span></label>
+                        <div class="form-group">
+                            <input type="radio" name="prevent_system" id="prevent_system-enabled" value="1" <?php echo ($br['config']['prevent_system'] == 1) ? 'checked' : ''; ?>>
+                            <label for="prevent_system-enabled">Enabled</label>
+                            <input type="radio" name="prevent_system" id="prevent_system-disabled" value="0" <?php echo ($br['config']['prevent_system'] == 0) ? 'checked' : ''; ?>>
+                            <label for="prevent_system-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="bad_login_limit" name="bad_login_limit" class="form-control" value="<?php echo $br['config']['bad_login_limit'] ?>">
+                                <label class="form-label">Bad Login Limit</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="lock_time" name="lock_time" class="form-control" value="<?php echo $br['config']['lock_time'] ?>">
+                                <label class="form-label">Lockout Time (Minutes)</label>
+                            </div>
+                        </div>
+                        <input type="hidden" name="hash_id" value="<?php echo Br_CreateSession(); ?>">
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+    <!-- #END# Vertical Layout -->
+    <script>
+        $(function() {
+
+            var form_lock_settings = $('form.lock-settings');
+            form_lock_settings.ajaxForm({
+                url: Br_Ajax_Requests_File() + '?f=admin_setting&s=update_general_setting',
+                beforeSend: function() {
+                    form_lock_settings.find('button').text('Please wait..');
+                },
+                success: function(data) {
+                    if (data.status == 200) {
+                        form_lock_settings.find('button').text('Save');
+                        $('.lock-settings-alert').html('<i class="fa fa-check"></i> Settings updated successfully');
+                        setTimeout(function() {
+                            $('.lock-settings-alert').empty();
+                        }, 2000);
+                    }
+                }
+            });
+
+            var form_general_settings = $('form.general-settings');
+            form_general_settings.ajaxForm({
+                url: Br_Ajax_Requests_File() + '?f=admin_setting&s=update_general_setting',
+                beforeSend: function() {
+                    form_general_settings.find('button').text('Please wait..');
+                },
+                success: function(data) {
+                    if (data.status == 200) {
+                        form_general_settings.find('button').text('Save');
+                        $('.general-settings-alert').html('<i class="fa fa-check"></i> Settings updated successfully');
+                        setTimeout(function() {
+                            $('.general-settings-alert').empty();
+                        }, 2000);
+                    }
+                }
+            });
+
+            var form_user_settings = $('form.user-settings');
+            form_user_settings.ajaxForm({
+                url: Br_Ajax_Requests_File() + '?f=admin_setting&s=update_general_setting',
+                beforeSend: function() {
+                    form_user_settings.find('button').text('Please wait..');
+                },
+                success: function(data) {
+                    if (data.status == 200) {
+                        form_user_settings.find('button').text('Save');
+                        $('.user-settings-alert').html('<i class="fa fa-check"></i> Settings updated successfully');
+                        setTimeout(function() {
+                            $('.user-settings-alert').empty();
+                        }, 2000);
+                    }
+                }
+            });
+
+            var form_notifications_settings = $('form.notifications-settings');
+            form_notifications_settings.ajaxForm({
+                url: Br_Ajax_Requests_File() + '?f=admin_setting&s=update_general_setting',
+                beforeSend: function() {
+                    form_notifications_settings.find('button').text('Please wait..');
+                },
+                success: function(data) {
+                    if (data.status == 200) {
+                        form_notifications_settings.find('button').text('Save');
+                        $('.notifications-settings-alert').html('<i class="fa fa-check"></i> Settings updated successfully');
+                        setTimeout(function() {
+                            $('.notifications-settings-alert').empty();
+                        }, 2000);
+                    }
+                }
+            });
+
+        });
+    </script>
