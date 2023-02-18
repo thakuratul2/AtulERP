@@ -12,7 +12,7 @@ $sql_db_pass = "";
 $sql_db_name = "brsoftsol_db";
 
 // Site URL
-$site_url = "http://localhost/AtulERP";
+$site_url = "http://localhost/E-Commerce-Atul-Project-/";
 // e.g (http://brsoftsol.com)
 
 ?>
