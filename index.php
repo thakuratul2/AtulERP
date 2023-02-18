@@ -1,11 +1,11 @@
 <?php
 // +------------------------------------------------------------------------+
 // | @author Atul Pratap Singh
-// | @author_url: http://www.brsoftsol.com
-// | @author_team: BR Team
-// | @author_email: brijeshch80580@gmail.com   
+// | @author_url: http://www.thakuratul.me
+// | 
+// | @author_email: pratapsinghatul111@gmail.com
 // +------------------------------------------------------------------------+
-// | Copyright (c) 2022 BR SoftSol. All rights reserved.
+// | Copyright (c) 2023 Atul Pratap Singh. All rights reserved.
 // +------------------------------------------------------------------------+
 require_once('assets/init.php');
 if ($br['loggedin'] == true) {
